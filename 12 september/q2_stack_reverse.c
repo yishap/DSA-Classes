@@ -18,10 +18,8 @@ void push(struct node **ptr){
         printf("Memory not allocated");
         exit(0);
     }
-    printf("Enter the rollno : ");
-    scanf("%d",&curr->rollno);
-    printf("Enter the cgpa : ");
-    scanf("%f",&curr->cgpa);
+    printf("Enter the rollno and cgpa: ");
+    scanf("%d %f",&curr->rollno,&curr->cgpa);
     curr->next=*ptr;
     *ptr=curr;
 }
@@ -40,8 +38,7 @@ void pop(struct node **ptr){
 void display(struct node *ptr){
     printf("\nThe stack is : \n");
     while(ptr!=NULL){
-        printf("Rollno : %d ",ptr->rollno);
-        printf("CGPA : %f ",ptr->cgpa);
+        printf("Rollno : %d, CGPA : %f ",ptr->rollno,ptr->cgpa);
         ptr=ptr->next;
         printf("\n");
     }
@@ -54,8 +51,7 @@ void reverse(struct node *ptr){
         return;
     }
     reverse(ptr->next);
-    printf("Rollno : %d ",ptr->rollno);
-    printf("CGPA :%f ",ptr->cgpa);
+    printf("Rollno : %d, CGPA : %f ",ptr->rollno,ptr->cgpa);
     printf("\n");
 }
 

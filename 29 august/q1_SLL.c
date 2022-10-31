@@ -18,7 +18,7 @@ void create(struct node *ptr){
     int i,data;
     printf("Enter the data: ");
     scanf("%d",&ptr->data);
-    ptr->next=NULL;
+    ptr->next=NULL;                       
     printf("Do you want to enter more data? (y/n): ");
     char ch;
     scanf(" %c",&ch);
@@ -109,7 +109,7 @@ int main(){
                     printf("Invalid choice");
             }
         }
-        while(choice!=5);
+        while(choice!=5);                       
     }
     return 0;
 }

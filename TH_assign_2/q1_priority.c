@@ -12,35 +12,47 @@ struct node
 {
     int priority;
     int info;
-    struct node *link;
+    struct node *next;
 };
 
 struct node *front = NULL;
 
-void insert_by_priority(int item, int priority)
+void enqueue(int item)
 {
-    struct node *tmp, *q;
-    tmp = (struct node *)malloc(sizeof(struct node));
-    tmp->info = item;
-    tmp->priority = priority;
-    if (front == NULL || priority < front->priority)
+    struct node *temp, *q;
+    temp = (struct node *)malloc(sizeof(struct node));
+    temp->info = item;
+    if(item==1)
+        temp->priority=1;
+    else if(item==2)
+        temp->priority=2;
+    else if(item==3)
+        temp->priority=3;
+    temp->next=NULL;
+    if(front==NULL)
     {
-        tmp->link = front;
-        front = tmp;
+        front=temp;
+    }
+    else if(front->priority<temp->priority)
+    {
+        temp->next=front;
+        front=temp;
     }
     else
     {
-        q = front;
-        while (q->link != NULL && q->link->priority <= priority)
-            q = q->link;
-        tmp->link = q->link;
-        q->link = tmp;
+        q=front;
+        while(q->next!=NULL && q->next->priority>temp->priority)
+        {
+            q=q->next;
+        }
+        temp->next=q->next;
+        q->next=temp;
     }
 }
 
-int delete_by_priority()
+int dequeue()
 {
-    struct node *tmp;
+    struct node *temp;
     int item;
     if (front == NULL)
     {
@@ -49,10 +61,10 @@ int delete_by_priority()
     }
     else
     {
-        tmp = front;
-        item = tmp->info;
-        front = front->link;
-        free(tmp);
+        temp = front;
+        item = temp->info;
+        front = front->next;
+        free(temp);
     }
     return item;
 }
@@ -69,7 +81,64 @@ void display()
         while (ptr != NULL)
         {
             printf("%d ", ptr->info);
-            ptr = ptr->link;
+            ptr = ptr->next;
+        }
+    }
+}
+
+void execute()
+{
+    struct node *ptr=front;
+    if(front==NULL)
+        printf("No tasks to execute");
+    else
+    {
+        while(ptr!=NULL)
+        {
+            if(ptr->priority==3)
+                printf("\nI/O interfacing task executed");
+            else if(ptr->priority==2)
+                printf("\nWeb Applications task executed");
+            else if(ptr->priority==1)
+                printf("\nLocal Printing task executed");
+            ptr=ptr->next;
+        }
+    }
+    while(front!=NULL)
+    {
+        dequeue();
+    }
+}
+
+int main()
+{
+    int choice, item, priority;
+    while (1)
+    {
+        printf("\n1.Insert\n2.Delete\n3.display\n4.Execute\n5.Quit\n");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+            case 1:
+                printf("Enter the operation to be done: ");
+                printf("\n1.local printing\n2.web applications\n3.I/O interfacing\n");
+                scanf("%d", &item);
+                enqueue(item);
+                break;
+            case 2:
+                item = dequeue();
+                printf("Deleted item is %d", item);
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                execute();
+                break;
+            case 5:
+                exit(1);
+            default:
+                printf("Wrong choice\n");
         }
     }
 }

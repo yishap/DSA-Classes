@@ -48,7 +48,7 @@ void display(){
 }
 
 void sort_stack(){
-    struct node *ptr = top;/ 
+    struct node *ptr = top;
     struct node *ptr1 = top;
     struct student temp;
     while(ptr!=NULL){

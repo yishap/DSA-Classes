@@ -57,9 +57,8 @@ void insert(struct node *root){
 }
 
 void display(struct node *root){
-    if(root == NULL){
-        return;
-    }
+    if(root==NULL)
+    return;
     display(root->left);
     printf("%d ", root->data);
     display(root->right);
